@@ -19,7 +19,7 @@ class Solution:
             elif nums[pivot] <= target <= nums[-1]:
                 index = self.bin_search(nums[pivot:], target)
                 if index != -1:
-                    return pivot + self.bin_search(nums[pivot:], target)
+                    return pivot + index
             return -1
         
     def bin_search(self, nums, target):
