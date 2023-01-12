@@ -20,10 +20,12 @@ class Solution:
         return self.ans
     
     def depth_first_search(self, graph, labels, curr = 0):
-        count = Counter()
+        count = {chr(97 + i): 0 for i in range(26)}
         
         for n in graph[curr]:
-            count += self.depth_first_search(graph, labels, n)
+            new = self.depth_first_search(graph, labels, n)
+            for c in count:
+                count[c] += new[c]
         
         count[labels[curr]] += 1
         self.ans[curr] = count[labels[curr]]
