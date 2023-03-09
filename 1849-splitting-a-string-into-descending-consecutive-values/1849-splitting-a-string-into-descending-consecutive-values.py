@@ -1,6 +1,8 @@
 class Solution:
     def splitString(self, s: str) -> bool:
-        def split(s, curr_ans = [], s_ = s):
+        s_length = len(s)
+        def split(s, curr_ans = []):
+            nonlocal s_length
             if not s:
                 return False
 
@@ -12,7 +14,7 @@ class Solution:
                     length = 0
                     for n in curr_ans:
                         length += len(n)
-                    if length == len(s_) and len(curr_ans) > 1:
+                    if length == s_length and len(curr_ans) > 1:
                         if check(curr_ans):
                             return True
                 curr_ans.pop()
