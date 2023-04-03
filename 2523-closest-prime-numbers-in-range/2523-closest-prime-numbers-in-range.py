@@ -1,11 +1,13 @@
 class Solution:
     def closestPrimes(self, left: int, right: int) -> List[int]:
-        is_prime = [True for _ in range(right + 1)]
+        # use Sieve of Eratosthenes
+        
+        is_prime: list[bool] = [True for _ in range(right + 1)]
         is_prime[0] = is_prime[1] = False
         i = 2
-        while i <= right:
+        while i * i <= right:
             if is_prime[i]:
-                j = 2 * i
+                j = i * i
                 while j <= right:
                     is_prime[j] = False
                     j += i
