@@ -17,7 +17,7 @@ class Solution:
         visited = set([id])
         total_importance = graph[id][0]
         while queue:
-            imp, neighbours = queue.pop()
+            imp, neighbours = queue.popleft()
             for n in neighbours:
                 if n not in visited:
                     total_importance += graph[n][0]
