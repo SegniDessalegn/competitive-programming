@@ -10,6 +10,9 @@ class Node:
 
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
+        # level order traversal using BFS
+        # finish one level, do some operations on the level, pass to the next level
+        
         if root is None:
             return root
         
