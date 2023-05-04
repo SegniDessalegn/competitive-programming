@@ -1,8 +1,5 @@
 class Solution:
     def predictPartyVictory(self, senate: str) -> str:
-        R_count = senate.count("R")
-        D_count = senate.count("D")
-        
         senate = deque(senate)
         turn = None
         turn_count = 0
