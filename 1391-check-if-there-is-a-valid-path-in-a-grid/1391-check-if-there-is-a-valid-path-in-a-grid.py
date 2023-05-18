@@ -9,18 +9,17 @@ class Solution:
                 reps[(i, j)] = (i, j)
         
         def find(pos):
-            nodes = []
             while pos != reps[pos]:
-                nodes.append(pos)
                 pos = reps[pos]
-            for node in nodes:
-                reps[node] = pos
             return pos
         
         def union(pos1, pos2):
             x_rep = find(pos1)
-            y_rep = find(pos2)
-            reps[y_rep] = x_rep
+            while pos2 != reps[pos2]:
+                temp = reps[pos2]
+                reps[pos2] = x_rep
+                pos2 = temp
+            reps[pos2] = x_rep
         
         def valid_pos(pos):
             r, c = pos
