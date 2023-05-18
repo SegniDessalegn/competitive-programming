@@ -1,5 +1,7 @@
 class Solution:
     def hasValidPath(self, grid: List[List[int]]) -> bool:
+        # union find
+        
         m = len(grid)
         n = len(grid[0])
         
