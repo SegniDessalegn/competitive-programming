@@ -19,8 +19,11 @@ class Solution:
         
         def union(x, y):
             x_rep = find(x)
-            y_rep = find(y)
-            reps[y_rep] = x_rep
+            while y != reps[y]:
+                temp = reps[y]
+                reps[y] = x_rep
+                y = temp
+            reps[y] = x_rep
             
         stones.sort()
         for i in range(1, n):
