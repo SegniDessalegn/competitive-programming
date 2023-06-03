@@ -1,16 +1,17 @@
 class Solution:
     def mostPoints(self, questions: List[List[int]]) -> int:
-        memo = {}
+        
+        dp = {}
+        n = len(questions)
         def recur(i):
-            nonlocal memo
-            if i >= len(questions):
+            if i >= n:
                 return 0
             
-            if i in memo:
-                return memo[i]
+            if i in dp:
+                return dp[i]
             
-            memo[i] = max(questions[i][0] + recur(i + questions[i][1] + 1), recur(i + 1))
-            
-            return memo[i]
+            dp[i] = max(questions[i][0] + recur(i + questions[i][1] + 1), recur(i + 1))
+            return dp[i]
         
         return recur(0)
+        
