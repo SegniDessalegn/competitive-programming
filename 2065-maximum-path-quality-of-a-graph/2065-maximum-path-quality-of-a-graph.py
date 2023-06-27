@@ -22,7 +22,7 @@ class Solution:
                 return
             
             for n in graph[node]:
-                recur(n, currTime + time[(node, n)], added.union(set([n])))
+                recur(n, currTime + time[(node, n)], added | set([n]))
         
         ans = 0
         recur(0, 0, set([0]))
