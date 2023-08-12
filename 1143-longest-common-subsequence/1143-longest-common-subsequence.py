@@ -1,32 +1,13 @@
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
-        closest = []
-        arr = [-1] * 26
-        for i in range(len(text2) - 1, -1, -1):
-            arr[ord(text2[i]) - 97] = i + 1
-            closest.append(arr.copy())
-        closest = closest[::-1]
+        N1 = len(text1)
+        N2 = len(text2)
+        dp = [[0] * (N2 + 1) for _ in range(N1 + 1)]
         
-        dp = {}
-        def recur(i, j):
-            if i >= len(text1) or j >= len(text2):
-                return 0
-            
-            if (i, j) in dp:
-                return dp[(i, j)]
-            
-            # choose
-            ans1 = 0
-            if closest[j][ord(text1[i]) - 97] != -1:
-                ans1 = 1 + recur(i + 1, closest[j][ord(text1[i]) - 97])
-            
-            # do not choose
-            ans2 = recur(i + 1, j)
-            
-            dp[(i, j)] = max(ans1, ans2)
-            
-            return dp[(i, j)]
-            
+        for i in range(1, N1 + 1):
+            for j in range(1, N2 + 1):
+                if text1[i - 1] == text2[j - 1]:
+                    dp[i][j] = max(dp[i][j], 1 + dp[i - 1][j - 1])
+                dp[i][j] = max(dp[i][j], dp[i - 1][j], dp[i][j - 1])
         
-        recur(0, 0)
-        return dp[(0, 0)]
+        return dp[N1][N2]
