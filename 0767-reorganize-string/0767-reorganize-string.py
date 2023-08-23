@@ -1,7 +1,8 @@
 class Solution:
     def reorganizeString(self, s: str) -> str:
-        s = list(s)
-        N = len(s)
+        # heap
+        # choose the most frequent characters every time
+        
         count = Counter(s)
         
         heap = []
@@ -18,6 +19,7 @@ class Solution:
                 ans.append(curr2[1])
                 if -curr2[0] > 1:
                     heapq.heappush(heap, (curr2[0] + 1, curr2[1]))
+            
             ans.append(curr[1])
             if -curr[0] > 1:
                 heapq.heappush(heap, (curr[0] + 1, curr[1]))
