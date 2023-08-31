@@ -2,7 +2,8 @@ class Solution:
     def minTaps(self, n: int, ranges: List[int]) -> int:
         points = []
         for i in range(n + 1):
-            points.append((max(0, i - ranges[i]), min(n, i + ranges[i])))
+            if ranges[i] != 0:
+                points.append((max(0, i - ranges[i]), min(n, i + ranges[i])))
         
         points.sort(key = lambda X:(X[0], -X[1]))
         if not points:
@@ -14,7 +15,7 @@ class Solution:
         for i in range(len(points)):
             if points[i][0] > reach:
                 # update reach
-                if next_reach > reach:
+                if next_reach > reach and next_reach >= points[i][0]:
                     reach = next_reach
                     ans += 1
                 else:
