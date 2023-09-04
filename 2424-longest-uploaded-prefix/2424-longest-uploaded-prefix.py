@@ -4,15 +4,9 @@ class UnionFind:
         self.rank = {i:0 for i in range(n)}
     
     def find(self, x):
-        nodes = []
-        while x != self.reps[x]:
-            nodes.append(x)
-            x = self.reps[x]
-        
-        for n in nodes:
-            self.reps[n] = x
-        
-        return x
+        if x != self.reps[x]:
+            self.reps[x] = self.find(self.reps[x])
+        return self.reps[x]
     
     def union(self, x, y):
         x_rep = self.find(x)
