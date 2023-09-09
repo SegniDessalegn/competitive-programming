@@ -3,7 +3,7 @@ class Solution:
         
         n = len(nums)
         @cache
-        def back_track(curr, i):            
+        def back_track(curr):            
             if curr == target:
                 return 1
             elif curr > target:
@@ -11,8 +11,8 @@ class Solution:
             
             curr_ans = 0
             for j in range(n):
-                curr_ans += back_track(curr + nums[j], j)
+                curr_ans += back_track(curr + nums[j])
             
             return curr_ans
         
-        return back_track(0, 0)
+        return back_track(0)
