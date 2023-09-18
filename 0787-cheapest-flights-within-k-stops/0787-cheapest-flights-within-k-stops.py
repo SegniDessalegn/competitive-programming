@@ -7,20 +7,13 @@ class Solution:
         dist = {i:float("inf") for i in range(N)}
         dist[src] = 0
         queue = deque([(0, 0, src)])
-        ans = float("inf")
         while queue:
             curr_cost, curr_k, curr = queue.popleft()
             
-            if curr_k > K + 1:
-                continue
-            
-            if curr == dst:
-                ans = min(ans, curr_cost)
-            
             for neighbour, c in graph[curr]:
                 total_cost = curr_cost + c
-                if total_cost < dist[neighbour]:
+                if total_cost < dist[neighbour] and curr_k < K + 1:
                     dist[neighbour] = total_cost
                     queue.append((total_cost, curr_k + 1, neighbour))
         
-        return ans if ans != float("inf") else -1
+        return dist[dst] if dist[dst] != float("inf") else -1
