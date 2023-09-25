@@ -1,25 +1,34 @@
 class Solution:
     def bestTeamScore(self, scores: List[int], ages: List[int]) -> int:
-        arr = []
-        n = len(scores)
-        for i in range(n):
-            arr.append((ages[i], scores[i]))
         
-        arr.sort()
+        players = []
+        N = len(scores)
+        max_age = 0
+        for i in range(N):
+            players.append((scores[i], ages[i]))
+            max_age = max(max_age, ages[i])
         
-        dp = {}
-        def recur(i):
-            if i in dp:
-                return dp[i]
-            curr_max = arr[i][1]
-            for j in range(i + 1, n):
-                if arr[j][1] >= arr[i][1]:
-                    curr_max = max(curr_max, arr[i][1] + recur(j))
-            dp[i] = curr_max
-            return dp[i]
+        players.sort()
         
-        for i in range(n):
-            recur(i)
+        cache = [[None for _ in range(max_age + 5)] for __ in range(N)]
         
-        return max(dp.values())
-    
+        def get_ans(i, age):
+            if i >= N:
+                return 0
+            
+            if cache[i][age] is not None:
+                return cache[i][age]
+            
+            curr_sum = 0
+            if players[i][1] >= age:
+                # pick
+                curr_sum = max(curr_sum, players[i][0] + get_ans(i + 1, players[i][1]))
+            
+            # not pick and pass on the previous age limit
+            curr_sum = max(curr_sum, get_ans(i + 1, age))
+            
+            cache[i][age] = curr_sum
+            
+            return curr_sum
+        
+        return get_ans(0, -1)
