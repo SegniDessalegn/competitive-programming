@@ -35,20 +35,20 @@ class Solution:
         for i in range(N):
             index[s[i]].append(i)
         
-        def count(root, word, i):
+        def count(root, i):
             nonlocal ans
-            if i == len(word):
+            
+            if i == N:
                 return
             
             for char in root.nodes:
                 idx = bisect_left(index[char], i)
                 if idx < len(index[char]):
                     ans += root.nodes[char].end
-                    idx = index[char][idx]
-                    count(root.nodes[char], word, idx + 1)
+                    count(root.nodes[char], index[char][idx] + 1)
         
         ans = 0
-        count(T.root, s, 0)
+        count(T.root, 0)
         
         return ans
     
