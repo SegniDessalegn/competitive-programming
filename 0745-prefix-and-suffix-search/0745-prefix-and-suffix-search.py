@@ -14,16 +14,13 @@ class Trie:
                 curr.nodes[char] = TrieNode()
             curr = curr.nodes[char]
         
-        curr.isEnd = True
         curr.last_index = i
     
     def search(self, root, pref, i, suff, j, started):
         index = -1
         if i < len(pref):
             if started:
-                if j == len(suff):
-                    return -1
-                if pref[i] != suff[j] or suff[j] not in root.nodes:
+                if j == len(suff) or pref[i] != suff[j] or suff[j] not in root.nodes:
                     return -1
                 index = max(index, self.search(root.nodes[suff[j]], pref, i + 1, suff, j + 1, True))
             else:
@@ -48,7 +45,8 @@ class Trie:
                     index = max(index, self.search(root.nodes[char], pref, i, suff, j, False))
                     
         return index
-        
+
+
 class WordFilter:
     
     def __init__(self, words: List[str]):
