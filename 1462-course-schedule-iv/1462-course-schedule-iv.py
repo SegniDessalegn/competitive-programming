@@ -1,19 +1,21 @@
 class Solution:
     def checkIfPrerequisite(self, numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
-        # Floyd Warshal algorithm
+        # Floyd Warshal's Algorithm
         
-        mat = [[False for _ in range(numCourses)] for __ in range(numCourses)]
+        reachable = [[False] * numCourses for _ in range(numCourses)]
         
         for a, b in prerequisites:
-            mat[a][b] = True
+            reachable[a][b] = True
         
         for k in range(numCourses):
             for i in range(numCourses):
                 for j in range(numCourses):
-                    mat[i][j] = mat[i][j] or (mat[i][k] and mat[k][j])
+                    if reachable[i][k] and reachable[k][j]:
+                        reachable[i][j] = True
         
         ans = []
         for a, b in queries:
-            ans.append(mat[a][b])
+            ans.append(reachable[a][b])
         
         return ans
+        
