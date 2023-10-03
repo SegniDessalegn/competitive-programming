@@ -6,6 +6,9 @@ class Solution:
         extra_length = N * (target // s)
         target %= s
         
+        if target == 0:
+            return extra_length
+        
         nums = nums + nums
         N = len(nums)
         
@@ -15,7 +18,7 @@ class Solution:
         for right in range(N):
             curr_sum += nums[right]
             
-            while curr_sum > target:
+            while left < right and curr_sum > target:
                 curr_sum -= nums[left]
                 left += 1
             
