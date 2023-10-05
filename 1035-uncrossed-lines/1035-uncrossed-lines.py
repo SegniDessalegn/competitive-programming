@@ -1,23 +1,12 @@
 class Solution:
     def maxUncrossedLines(self, nums1: List[int], nums2: List[int]) -> int:
-        l1 = len(nums1)
-        l2 = len(nums2)
+        N1 = len(nums1)
+        N2 = len(nums2)
+        dp = [[0] * (N2 + 1) for _ in range(N1 + 1)]
+        for i in range(1, N1 + 1):
+            for j in range(1, N2 + 1):
+                if nums1[i - 1] == nums2[j - 1]:
+                    dp[i][j] = max(1 + dp[i - 1][j - 1], dp[i][j - 1], dp[i - 1][j])
+                dp[i][j] = max(dp[i][j], dp[i][j - 1], dp[i - 1][j])
         
-        dp = {}
-        
-        def recur(i = -1, j = -1):
-            if i >= l1 - 1 or j >= l2 - 1:
-                return 0
-            
-            if (i, j) in dp:
-                return dp[(i, j)]
-            
-            if nums1[i + 1] == nums2[j + 1]:
-                dp[(i, j)] = 1 + recur(i + 1, j + 1)
-            else:
-                dp[(i, j)] = max(recur(i + 1, j), recur(i, j + 1))
-            
-            return dp[(i, j)]
-        
-        
-        return recur()
+        return dp[-1][-1]
