@@ -33,7 +33,7 @@ class Solution:
         curr_direction = NORTH
         curr_position = (0, 0)
         
-        for _ in range(1000):
+        for _ in range(4):
             for instruction in instructions:
                 if instruction == "G":
                     curr_position = update_pos(curr_position, curr_direction)
