@@ -9,7 +9,7 @@
 class Solution:
     def findInMountainArray(self, target: int, mountain_arr: 'MountainArray') -> int:
         # find peak of mountain array first
-        # then find the target in both parts of the mountain_arr
+        # then find the target in both sections of the mountain_arr
         
         def good(mid):
             curr = mountain_arr.get(mid)
@@ -47,7 +47,7 @@ class Solution:
         if mountain_arr.get(right) == target:
             return right
         
-        # in the right section
+        # search in the right section
         left = mountain_index - 1
         right = N
         while right - left > 1:
