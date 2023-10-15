@@ -1,19 +1,17 @@
 class Solution:
     def numWays(self, steps: int, arrLen: int) -> int:
         
-        def recur(index, curr_steps):
-            if (index, curr_steps) in dp:
-                return dp[(index, curr_steps)]
-            if index < 0 or index >= arrLen:
+        @cache
+        def get_ans(i, steps_left):
+            if i == -1 or i == arrLen:
                 return 0
-            if curr_steps == steps:
-                if index == 0:
+            
+            if steps_left == 0:
+                if i == 0:
                     return 1
                 else:
                     return 0
             
-            dp[(index, curr_steps)] = recur(index - 1, curr_steps + 1) + recur(index, curr_steps + 1) + recur(index + 1, curr_steps + 1)
-            return dp[(index, curr_steps)]
+            return (get_ans(i, steps_left - 1) + get_ans(i - 1, steps_left - 1) + get_ans(i + 1, steps_left - 1)) % (10 ** 9 + 7)
         
-        dp = {}
-        return recur(0, 0) % (10 ** 9 + 7)
+        return get_ans(0, steps)
