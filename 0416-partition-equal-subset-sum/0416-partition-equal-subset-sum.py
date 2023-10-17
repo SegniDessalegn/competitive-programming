@@ -1,23 +1,20 @@
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
-        
-        @cache
-        def get_ans(i, balance):
-            if i == N:
-                return balance == s // 2
-            
-            if abs(balance) > s // 2:
-                return False
-            
-            if get_ans(i + 1, balance + nums[i]):
-                return True
-            
-            if get_ans(i + 1, balance):
-                return True
-        
         N = len(nums)
         s = sum(nums)
         if s % 2 == 1:
             return False
-        return get_ans(0, 0)
+        
+        dp = [[False] * 20001 for _ in range(N + 1)]
+        dp[0][0] = True
+        for i in range(1, N + 1):
+            for j in range(20001):
+                if dp[i-1][j] == True:
+                    dp[i][j] = True
+                    dp[i][j + nums[i-1]] = True
+                
+                if j == s // 2 and dp[i][j] == True:
+                    return True
+        
+        return False
     
