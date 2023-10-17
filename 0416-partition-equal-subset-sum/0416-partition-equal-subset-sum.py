@@ -2,20 +2,22 @@ class Solution:
     def canPartition(self, nums: List[int]) -> bool:
         
         @cache
-        def get_ans(i, left, right):
+        def get_ans(i, balance):
             if i == N:
-                return left == right
+                return balance == s // 2
             
-            if left > s // 2 or right > s // 2:
+            if abs(balance) > s // 2:
                 return False
             
-            if get_ans(i + 1, left + nums[i], right):
+            if get_ans(i + 1, balance + nums[i]):
                 return True
             
-            if get_ans(i + 1, left, right + nums[i]):
+            if get_ans(i + 1, balance):
                 return True
         
         N = len(nums)
         s = sum(nums)
-        return get_ans(0, 0, 0)
+        if s % 2 == 1:
+            return False
+        return get_ans(0, 0)
     
