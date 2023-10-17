@@ -1,24 +1,13 @@
 class Solution:
     def mincostTickets(self, days: List[int], costs: List[int]) -> int:
-        
-        @cache
-        def get_cost(i):
-            if i >= N:
-                return 0
-            
-            curr_cost = float("inf")
-            
-            # choose 1-day pass
-            curr_cost = min(curr_cost, costs[0] + get_cost(bisect_left(days, days[i] + 1)))
-            
-            # choose 7-day pass
-            curr_cost = min(curr_cost, costs[1] + get_cost(bisect_left(days, days[i] + 7)))
-            
-            # choose 30-day pass
-            curr_cost = min(curr_cost, costs[2] + get_cost(bisect_left(days, days[i] + 30)))
-            
-            return curr_cost
-        
         N = len(days)
-        return get_cost(0)
+        dp = [float("inf")] * (N + 1)
+        dp[0] = 0
+        passes = [1, 7, 30]
+        for i in range(1, N + 1):
+            for j in range(3):
+                idx = bisect_left(days, days[i - 1] - passes[j] + 1)
+                dp[i] = min(dp[i], costs[j] + dp[idx])
         
+        return dp[-1]
+    
