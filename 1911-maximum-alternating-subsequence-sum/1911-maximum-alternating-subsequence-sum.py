@@ -1,21 +1,11 @@
 class Solution:
     def maxAlternatingSum(self, nums: List[int]) -> int:
-        
-        @cache
-        def get_ans(i, is_even):
-            if i == N:
-                return 0
-            
-            curr_sum = -float("inf")
-            
-            # choose
-            curr_sum = max(curr_sum, ((1 if is_even else -1) * nums[i]) + get_ans(i + 1, not is_even))
-            
-            # not choose
-            curr_sum = max(curr_sum, get_ans(i + 1, is_even))
-            
-            return curr_sum
-        
         N = len(nums)
-        return get_ans(0, True)
+        dp = [[-float("inf")] * 2 for _ in range(N + 1)]
+        dp[0][1] = 0
+        for i in range(1, N + 1):
+            dp[i][0] = max(dp[i][0], dp[i - 1][0], nums[i - 1] + dp[i - 1][1])
+            dp[i][1] = max(dp[i][1], dp[i - 1][1], -nums[i - 1] + dp[i - 1][0])
+        
+        return max(dp[-1])
     
