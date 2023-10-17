@@ -4,11 +4,12 @@ class Solution:
         s = sum(nums)
         if s % 2 == 1:
             return False
+        maxVal = max(nums) * N + 1
         
-        dp = [[False] * 20001 for _ in range(N + 1)]
+        dp = [[False] * maxVal for _ in range(N + 1)]
         dp[0][0] = True
         for i in range(1, N + 1):
-            for j in range(20001):
+            for j in range(maxVal):
                 if dp[i-1][j] == True:
                     dp[i][j] = True
                     dp[i][j + nums[i-1]] = True
