@@ -16,7 +16,6 @@ class Solution:
             for i in range(1, len(index[num])):
                 max_range = max(max_range, index[num][i] - index[num][i - 1])
             
-            if max_range > 0:
-                ans = min(ans, max_range // 2)
+            ans = min(ans, max_range // 2)
         
         return ans
