@@ -7,13 +7,11 @@ class Solution:
         
         def traverse(node):
             nonlocal visited_count, visited
-            visited_count[node] += 1
             for neighbour in graph[node]:
                 if neighbour not in visited:
                     visited.add(neighbour)
                     traverse(neighbour)
-                else:
-                    visited_count[neighbour] += 1
+                visited_count[neighbour] += 1
         
         def valid(count):
             nodes = len(count)
@@ -29,7 +27,6 @@ class Solution:
             if start not in visited:
                 visited.add(start)
                 traverse(start)
-                visited_count[start] -= 1
                 if valid(visited_count):
                     count += 1
                 visited_count = defaultdict(int)
