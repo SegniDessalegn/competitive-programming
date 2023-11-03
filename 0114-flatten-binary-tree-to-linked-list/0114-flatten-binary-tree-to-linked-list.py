@@ -8,23 +8,21 @@ class Solution:
     def flatten(self, root: Optional[TreeNode]) -> None:
         
         if root is None:
-            return None
+            return None, None
         
-        right = self.flatten(root.right)
-        left = self.flatten(root.left)
+        right, right_ptr = self.flatten(root.right)
+        left, left_ptr = self.flatten(root.left)
         
-        if left is None:
-            return root
-        
-        curr = left
-        while curr and curr.right is not None:
-            curr = curr.right
-        
-        if curr:
-            curr.right = right
-        
-        root.right = left
-        root.left = None
-        
-        return root
-        
+        if left_ptr is None and right_ptr is None:
+            return root, root
+        elif left_ptr is None and right_ptr is not None:
+            return root, right_ptr
+        elif right_ptr is None and left_ptr is not None:
+            root.right = left
+            root.left = None
+            return root, left_ptr
+        else:
+            left_ptr.right = right
+            root.right = left
+            root.left = None
+            return root, right_ptr
