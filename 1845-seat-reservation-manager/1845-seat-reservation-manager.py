@@ -1,7 +1,7 @@
 class SeatManager:
 
     def __init__(self, n: int):
-        self.unreserved = [i + 1 for i in range(10 ** 5)]
+        self.unreserved = [i + 1 for i in range(n)]
         heapq.heapify(self.unreserved)
         self.reserved = set()
 
