@@ -1,5 +1,8 @@
 class Solution:
     def findSpecialInteger(self, arr: List[int]) -> int:
-        count = Counter(arr)
-        return sorted(arr, key = lambda num: count[num])[-1]
-    
+        size = len(arr) // 4
+        for i in range(size, len(arr)):
+            if arr[i - size] == arr[i]:
+                return arr[i]
+        
+        assert(False)
