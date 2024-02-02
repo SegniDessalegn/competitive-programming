@@ -1,22 +1,22 @@
 class Solution:
     def sequentialDigits(self, low: int, high: int) -> List[int]:
         
-        def find_digits(num):
-            if low <= int(num) <= high:
-                ans.append(int(num))
-            if int(num) > high or num[-1] == "9":
-                return
-            find_digits(num + str(int(num[-1]) + 1))
-        
         ans = []
-        if len(str(high)) == len(str(low)):
-            l = str(low)[0]
-            h = str(high)[0]
-        else:
-            l = "1"
-            h = "9"
+        queue = deque()
         
-        for num in range(int(l), int(h)+ 1):
-            find_digits(str(num))
+        for i in range(1, 10):
+            queue.append(i)
         
-        return sorted(ans)
+        while queue:
+            curr = queue.popleft()
+            if low <= curr <= high:
+                ans.append(curr)
+            
+            if curr > high or str(curr)[-1] == "9":
+                continue
+            
+            curr = int(str(curr) + str(int(str(curr)[-1]) + 1))
+            queue.append(curr)
+        
+        return ans
+    
