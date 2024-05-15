@@ -7,9 +7,6 @@ class Solution:
         
         for i in range(N):
             for mask in range(1 << N):
-                if dp[i][mask] == float("inf"):
-                    continue
-                
                 for j in range(N):
                     if not(mask & (1 << j)):
                         next_mask = mask | (1 << j)
