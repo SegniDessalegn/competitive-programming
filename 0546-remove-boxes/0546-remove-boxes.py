@@ -1,6 +1,5 @@
 class Solution:
     def removeBoxes(self, boxes: List[int]) -> int:
-        from functools import lru_cache
 
         @cache
         def dp(l, r, k):
@@ -18,3 +17,4 @@ class Solution:
             return res
 
         return dp(0, len(boxes) - 1, 1)
+    
