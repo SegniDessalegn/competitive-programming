@@ -19,4 +19,3 @@ class Solution:
                 visited.add((i, j + 1))
         
         return res
-    
