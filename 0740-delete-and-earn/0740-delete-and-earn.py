@@ -4,25 +4,16 @@ class Solution:
         nums = sorted(list(set(nums)))
         N = len(nums)
         
-        def get_index(index):
-            for i in range(index + 1, N):
-                if nums[i] != nums[index] + 1:
-                    return i
-            return N
+        prev = nums[0] * count[nums[0]]
+        prev_prev = 0
         
-        @cache
-        def get_ans(i):
-            if i == N:
-                return 0
+        for i in range(1, N):
+            if nums[i] == nums[i - 1] + 1:
+                curr = max((nums[i] * count[nums[i]]) + prev_prev, prev)
+            else:
+                curr = (nums[i] * count[nums[i]]) + max(prev_prev, prev)
             
-            # pick
-            pick = (nums[i] * count[nums[i]]) + get_ans(get_index(i))
-            
-            # not pick
-            not_pick = get_ans(i + 1)
-            
-            return max(pick, not_pick)
+            prev, prev_prev = curr, prev
         
-        
-        return get_ans(0)
+        return max(prev, prev_prev)
         
