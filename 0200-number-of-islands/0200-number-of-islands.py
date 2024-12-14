@@ -6,7 +6,7 @@ class Solution:
             visited.add((i, j))
             
             while queue:
-                x, y = queue.pop()
+                x, y = queue.popleft()
                 for dx, dy in directions:
                     nx, ny = x + dx, y + dy
                     if (0 <= nx < M) and (0 <= ny < N) and (nx, ny) not in visited and grid[nx][ny] == "1":
