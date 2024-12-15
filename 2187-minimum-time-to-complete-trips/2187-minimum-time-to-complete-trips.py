@@ -11,7 +11,7 @@ class Solution:
             return total_count >= totalTrips
             
         left = -1
-        right = 1 << 63 - 1
+        right = max(time) * totalTrips
         while right - left > 1:
             mid = (right + left) // 2
             
