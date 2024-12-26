@@ -1,22 +1,19 @@
 class Solution:
     def countFairPairs(self, nums: List[int], lower: int, upper: int) -> int:
         
-        def get_pairs(upper):
-            curr_ans = 0
+        def get_less_than(val):
+            result = 0
             left = 0
-            right = N - 1
-            
+            right = len(nums) - 1
             while left < right:
-                if nums[left] + nums[right] > upper:
-                    right -= 1
-                else:
-                    curr_ans += right - left
+                if nums[left] + nums[right] <= val:
+                    result += (right - left)
                     left += 1
+                else:
+                    right -= 1
             
-            return curr_ans
+            return result
         
-        
-        N = len(nums)
         nums.sort()
-        return get_pairs(upper) - get_pairs(lower - 1)
+        return get_less_than(upper) - get_less_than(lower - 1)
     
