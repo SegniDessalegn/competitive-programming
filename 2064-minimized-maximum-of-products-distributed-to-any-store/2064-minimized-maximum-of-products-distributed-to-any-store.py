@@ -4,7 +4,7 @@ class Solution:
         def good(x):
             count = 0
             for curr in quantities:
-                count += (curr + x - 1) // x
+                count += math.ceil(curr / x)
             
             return count <= n
         
